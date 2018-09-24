@@ -1,4 +1,4 @@
-# MiniProject2: Discover list of projects on sourceforge.net and gitlab.com
+# MiniProject2: Discover a list of projects on sourceforge.net and gitlab.com
 
 
 These two forges presente two different types of challeges to discovery. 
