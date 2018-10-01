@@ -60,7 +60,7 @@ h;iway1;iway1;Way, Isaac Caldwell
 
 ## GitLab discovery  
 GitLab provides [APIs](https://docs.gitlab.com/ee/api/) to retrieve project url.  
-Here is a sample code for collecting projects url:
+Here is a sample code for collecting projects url (and stores data in mogodb):
 ```
 import sys
 import re
@@ -70,11 +70,11 @@ import time
 import datetime
 import requests
 
-dbname = sys.argv[1]
-collname = sys.argv[2]
+dbname = fdac18mp2 #please use this database
+collname = glprj_yourutkid #please modify so you store data in your collection
 # beginning page index
-begin = sys.argv[3]
-client = pymongo.MongoClient(host=YOURHOST)
+begin = sys.argv[1]
+client = pymongo.MongoClient()
 
 db = client[dbname]
 coll = db[collname]
@@ -161,4 +161,5 @@ def get(url, coll):
 #start retrieving        
 get(beginurl,coll)
 ```
-Note that the parameters in the sample code are not in a perfect setting. Please feel free to tune them. This sample code is not robust enough to deal with various returned errors from query. You might need to investigate errors encountered individually. 
+
+Note that the parameters in the sample code are not optimal. Please feel free to tune them. This sample code is not robust enough to deal with various returned errors from query. You might need to investigate errors encountered individually. 
