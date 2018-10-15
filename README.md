@@ -6,7 +6,7 @@
 NPM package list
 
 The list of packages is unique to each one of you:
-/data/shared/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz
+/data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz
 where XX is between 0 and 33: to find your number look at the list below. 
 
 ### Goal:
