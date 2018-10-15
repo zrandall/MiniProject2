@@ -28,7 +28,7 @@ for r in coll.find():
         r = r['url']
         getReleases('url')
 ```
-2. For each such package, get a list of all releases.  Example file is Use Github API: 
+2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases).  Reference to Github API: 
 ```
 https://developer.github.com/v3/repos/releases/
 ```
