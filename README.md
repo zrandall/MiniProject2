@@ -11,7 +11,7 @@ where XX is between 0 and 33: to find your number look at the list below.
 
 ### Goal:
 1. Download and store data from npm on all your packages on mongodb database:
-    fdac18mp2, collection: ghrel_yourutkid
+    fdac18mp2, collection: npm_yourutkid
 1. Identify the packages that have GH repos (based on the stored info)
 ```
 # it has to contain value in
