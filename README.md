@@ -14,11 +14,21 @@ where XX is between 0 and 33: to find your number look at the list below.
     fdac18mp2, collection: npm_yourutkid, the example code is in readNpm.py
 1. Identify the packages that have GH repos (based on the stored info)
 ```
-# it has to contain value in
-record["collected"]["metadata"]["repository"]["url"]
-"git+https://github.com//0-.git"
+import pymongo, json, sys
+client = pymongo.MongoClient ()
+db = client ['fdac18mp2']
+id = sys.argv[1] #your utkid
+coll = db [ 'npm_' + id]
+for r in coll.find():
+  if 'collected' in r:
+    r = r['collected']
+    if 'metadata' in r:
+      r = r['metadata']
+      if 'repository' in r:
+        r = r['url']
+        getReleases('url')
 ```
-2. For each such package, get a list of all releases.  Use Github API: 
+2. For each such package, get a list of all releases.  Example file is Use Github API: 
 ```
 https://developer.github.com/v3/repos/releases/
 ```
