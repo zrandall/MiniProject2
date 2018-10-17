@@ -2,19 +2,19 @@ import sys, re, pymongo, json, time
 import datetime
 from requests.auth import HTTPBasicAuth
 import requests
-gleft = 15
+gleft = 1500
 
-client = pymongo.MongoClient ()
-#client = pymongo.MongoClient (host="da1.eecs.utk.edu")
-login = "your ghid"
-passwd = "your ghpassword"
+#client = pymongo.MongoClient ()
+client = pymongo.MongoClient (host="da1.eecs.utk.edu")
+login = sys.argv[1]
+passwd = sys.argv[2]
 
 baseurl = 'https://api.github.com/repos'
 headers = {'Accept': 'application/vnd.github.v3.star+json'}
 headers = {'Accept': 'application/vnd.github.hellcat-preview+json'}
 
-db = client['fdac18mps'] # added in class
-collName = 'releases_yourutkid'
+db = client['fdac18mp2'] # added in class
+collName = 'releases_audris'
 coll = db [collName]
 def wait (left):
   while (left < 20):
@@ -96,10 +96,12 @@ def chunks(l, n):
 
 for n in sys.stdin.readlines():
   #first clean the url
+  n = n.rstrip()
   n = re.sub("^.*github.com/","",n)
   n = re.sub("\.git$","",n)
-  url = baseurl + '/' + n + '/' + releases
+  url = baseurl + '/' + n + '/releases'
   url1 = url
+  print("trying to get: " + url1)
   v = []
   size = 0
   try: 
