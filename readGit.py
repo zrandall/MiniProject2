@@ -12,6 +12,7 @@ baseurl = 'https://api.github.com/repos'
 headers = {'Accept': 'application/vnd.github.v3.star+json'}
 headers = {'Accept': 'application/vnd.github.hellcat-preview+json'}
 
+db=client['fdac18mps'] # added in class
 collName = 'releases_yourutkid'
 coll = db [collName]
 def wait (left):
@@ -112,11 +113,12 @@ def getReleases(n):
   if len (v) > 0:
     # size may be bigger in bson, factor of 2 doesnot always suffice    
     if (size < 16777216/3):
-      print (v)#coll.insert ( { 'name': n, 'url': url, 'utc':ts, 'values': v } )
+      print (v)#
+      _one ( { 'name': n, 'url': url, 'utc':ts, 'values': v } )
     else:
       s = size;
       n = 3*s/16777216
       i = 0
       for ch in chunks (v, n):
-        #coll.insert ( { 'chunk': i, 'name':n, 'url': url, 'utc':ts, 'values': ch } )
+        #coll.insert_one ( { 'chunk': i, 'name':n, 'url': url, 'utc':ts, 'values': ch } )
         i = i + 1 
