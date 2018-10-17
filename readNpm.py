@@ -31,7 +31,7 @@ for pname in sys.stdin.readlines():
     k1 = k.replace('$', 'DOLLARSIGN')
     k1 = k1.replace('.', 'PERIODSIGN')
     r1 [k1] = result_json [k]
-   coll .insert (r1, check_keys=False)
+   coll .insert_one (r1, check_keys=False)
    output (0, pname)
   except:
    e = sys.exc_info()[0]
