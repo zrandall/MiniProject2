@@ -40,6 +40,24 @@ releases_yourutkid collection. Reference to Github API:
 ```
 https://developer.github.com/v3/repos/releases/
 ```
+3. Extract releases from mongodb
+```
+import pymongo, json, sys
+client = pymongo.MongoClient ()
+db = client ['fdac18mp2']
+id = sys.argv[1] #your utkid
+coll = db [ 'npm_' + id]
+for r in coll.find():
+  if 'collected' in r:
+    r = r['collected']
+    if 'metadata' in r:
+      r = r['metadata']
+      if 'repository' in r:
+        r = r['repository']
+        if 'url' in r:
+          r = r['url']
+          print (r)
+```          
 3. Find no. of commits between the latest and other releases.
 
 For example:
