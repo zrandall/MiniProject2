@@ -25,10 +25,18 @@ for r in coll.find():
     if 'metadata' in r:
       r = r['metadata']
       if 'repository' in r:
-        r = r['url']
-        getReleases('url')
+        r = r['repository']
+        if 'url' in r:
+          r = r['url']
+          print (r)
 ```
-2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases).  Reference to Github API: 
+Suppose the above code is in extrNpm.py. To output the urls:
+```
+zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz > myurls
+```
+
+2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases). It reads from standard input and populates
+releases_yourutkid collection. Reference to Github API: 
 ```
 https://developer.github.com/v3/repos/releases/
 ```
