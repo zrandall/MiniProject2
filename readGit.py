@@ -2,6 +2,7 @@ import sys, re, pymongo, json, time
 import datetime
 from requests.auth import HTTPBasicAuth
 import requests
+gleft = 15
 
 client = pymongo.MongoClient ()
 #client = pymongo.MongoClient (host="da1.eecs.utk.edu")
@@ -12,7 +13,7 @@ baseurl = 'https://api.github.com/repos'
 headers = {'Accept': 'application/vnd.github.v3.star+json'}
 headers = {'Accept': 'application/vnd.github.hellcat-preview+json'}
 
-db=client['fdac18mps'] # added in class
+db = client['fdac18mps'] # added in class
 collName = 'releases_yourutkid'
 coll = db [collName]
 def wait (left):
@@ -93,7 +94,7 @@ def chunks(l, n):
   if n < 1: n = 1
   return [l[i:i + n] for i in range(0, len(l), n)]
 
-def getReleases(n):
+for n in sys.stdin.readlines():
   #first clean the url
   n = re.sub("^.*github.com/","",n)
   n = re.sub("\.git$","",n)
@@ -113,12 +114,11 @@ def getReleases(n):
   if len (v) > 0:
     # size may be bigger in bson, factor of 2 doesnot always suffice    
     if (size < 16777216/3):
-      print (v)#
-      _one ( { 'name': n, 'url': url, 'utc':ts, 'values': v } )
+      coll.insert_one ( { 'name': n, 'url': url, 'utc':ts, 'values': v } )
     else:
       s = size;
       n = 3*s/16777216
       i = 0
       for ch in chunks (v, n):
-        #coll.insert_one ( { 'chunk': i, 'name':n, 'url': url, 'utc':ts, 'values': ch } )
+        coll.insert_one ( { 'chunk': i, 'name':n, 'url': url, 'utc':ts, 'values': ch } )
         i = i + 1 
