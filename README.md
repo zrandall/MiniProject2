@@ -12,6 +12,9 @@ where XX is between 0 and 33: to find your number look at the list below.
 ### Goal:
 1. Download and store data from npm on all your packages on mongodb database:
     fdac18mp2, collection: npm_yourutkid, the example code is in readNpm.py
+```
+zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz | python3 readNpm.py
+```
 1. Identify the packages that have GH repos (based on the stored info)
 ```
 import pymongo, json, sys
@@ -32,7 +35,7 @@ for r in coll.find():
 ```
 Suppose the above code is in extrNpm.py. To output the urls:
 ```
-zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz > myurls
+python3 extrNpm.py > myurls
 ```
 
 2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases). It reads from standard input and populates
@@ -40,7 +43,27 @@ releases_yourutkid collection. Reference to Github API:
 ```
 https://developer.github.com/v3/repos/releases/
 ```
-3. Find no. of commits between the latest and other releases.
+3. Extract releases from mongodb
+```
+import pymongo, json, sys
+client = pymongo.MongoClient (host="da1")
+db = client ['fdac18mp2']
+id = "audris"
+coll = db [ 'releases_' + id]
+for r in coll.find():
+  n = r['name']
+  if 'values' in r:
+    for v in r['values']:
+      if 'tag_name' in v:
+        print (n+';'+v['tag_name'])
+```          
+Suppose the above code is in extrRels.py. To output the urls:
+```
+cat myurls | python3 extrRels.py > myrels
+```
+
+
+4. Find no. of commits between the latest and other releases.
 
 For example:
     E.g. https://api.github.com/repos/webpack-contrib/html-loader/compare/v0.5.4...master or https://api.github.com/repos/git/git/compare/v2.2.0-rc1...v2.2.0-rc2
