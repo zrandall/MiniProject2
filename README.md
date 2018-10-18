@@ -69,10 +69,16 @@ For example:
     E.g. https://api.github.com/repos/webpack-contrib/html-loader/compare/v0.5.4...master or https://api.github.com/repos/git/git/compare/v2.2.0-rc1...v2.2.0-rc2
     More resource: https://stackoverflow.com/questions/26925312/github-api-how-to-compare-2-commits (look for comparing the tags in the answer)
     Get the data from the json, look for something like to get no. of commits between releases
+```    
  "status": "ahead",
  "ahead_by": 24,
  "behind_by": 0,
  "total_commits": 24,
+```
+For example
+```
+cat myrels | python3 compareRels.py
+```
  
 | number  | GitHub Username | NetID | Name |
 |:-:|:-:|:-:|---|
