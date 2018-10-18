@@ -12,6 +12,9 @@ where XX is between 0 and 33: to find your number look at the list below.
 ### Goal:
 1. Download and store data from npm on all your packages on mongodb database:
     fdac18mp2, collection: npm_yourutkid, the example code is in readNpm.py
+```
+zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz | python3 readNpm.py
+```
 1. Identify the packages that have GH repos (based on the stored info)
 ```
 import pymongo, json, sys
@@ -32,7 +35,7 @@ for r in coll.find():
 ```
 Suppose the above code is in extrNpm.py. To output the urls:
 ```
-zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz | python3 extrNpm.py > myurls
+python3 extrNpm.py > myurls
 ```
 
 2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases). It reads from standard input and populates
