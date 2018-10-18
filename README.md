@@ -32,7 +32,7 @@ for r in coll.find():
 ```
 Suppose the above code is in extrNpm.py. To output the urls:
 ```
-zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz > myurls
+zcat /data/NPMvulnerabilities/NPMpkglist/NPMpkglist_XX.gz | python3 extrNpm.py > myurls
 ```
 
 2. For each such package, get a list of all releases.  Example file is readGit.py (you can use it with the snippet above to get releases). It reads from standard input and populates
@@ -43,22 +43,24 @@ https://developer.github.com/v3/repos/releases/
 3. Extract releases from mongodb
 ```
 import pymongo, json, sys
-client = pymongo.MongoClient ()
+client = pymongo.MongoClient (host="da1")
 db = client ['fdac18mp2']
-id = sys.argv[1] #your utkid
-coll = db [ 'npm_' + id]
+id = "audris"
+coll = db [ 'releases_' + id]
 for r in coll.find():
-  if 'collected' in r:
-    r = r['collected']
-    if 'metadata' in r:
-      r = r['metadata']
-      if 'repository' in r:
-        r = r['repository']
-        if 'url' in r:
-          r = r['url']
-          print (r)
+  n = r['name']
+  if 'values' in r:
+    for v in r['values']:
+      if 'tag_name' in v:
+        print (n+';'+v['tag_name'])
 ```          
-3. Find no. of commits between the latest and other releases.
+Suppose the above code is in extrRels.py. To output the urls:
+```
+cat myurls | python3 extrRels.py > myrels
+```
+
+
+4. Find no. of commits between the latest and other releases.
 
 For example:
     E.g. https://api.github.com/repos/webpack-contrib/html-loader/compare/v0.5.4...master or https://api.github.com/repos/git/git/compare/v2.2.0-rc1...v2.2.0-rc2
