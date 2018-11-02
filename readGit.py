@@ -6,8 +6,8 @@ gleft = 1500
 
 #client = pymongo.MongoClient ()
 client = pymongo.MongoClient (host="da1.eecs.utk.edu")
-login = 'zrandall'
-passwd = 'N0rm@n962519320?'
+login = 
+passwd = 
 
 baseurl = 'https://api.github.com/repos'
 headers = {'Accept': 'application/vnd.github.v3.star+json'}
