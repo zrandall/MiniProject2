@@ -6,15 +6,15 @@ gleft = 1500
 
 #client = pymongo.MongoClient ()
 client = pymongo.MongoClient (host="da1.eecs.utk.edu")
-login = sys.argv[1]
-passwd = sys.argv[2]
+login = 'zrandall'
+passwd = 'N0rm@n962519320?'
 
 baseurl = 'https://api.github.com/repos'
 headers = {'Accept': 'application/vnd.github.v3.star+json'}
 headers = {'Accept': 'application/vnd.github.hellcat-preview+json'}
 
 db = client['fdac18mp2'] # added in class
-collName = 'releases_audris'
+collName = 'releases_zrandall'
 coll = db [collName]
 def wait (left):
   while (left < 20):
